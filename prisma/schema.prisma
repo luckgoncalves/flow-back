@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  organizations OrganizationMember[]
+}
+
+model Organization {
+  id          String    @id @default(cuid())
+  name        String
+  subdomain   String    @unique
+  title       String
+  subtitle    String?
+  logo        String?   // URL to the logo image
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Organization settings
+  logoSettings LogoSettings?
+  
+  // Relations
+  members     OrganizationMember[]
+  projects    Project[]
+  statuses    Status[]
+  tags        Tag[]
+  feedbacks   Feedback[]
+}
+
+model LogoSettings {
+  id                String       @id @default(cuid())
+  whiteBackground   Boolean      @default(true)
+  shadow            Boolean      @default(false)
+  borderRadius      Boolean      @default(false)
+  
+  // Relations
+  organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId    String       @unique
+}
+
+model OrganizationMember {
+  id              String       @id @default(cuid())
+  role            Role        @default(MEMBER)
+  
+  // Relations
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId  String
+
+  @@unique([userId, organizationId])
+}
+
+model Project {
+  id              String       @id @default(cuid())
+  name            String
+  description     String?
+  
+  // Relations
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId  String
+  feedbacks       Feedback[]
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Status {
+  id              String       @id @default(cuid())
+  name            String
+  color           String      @default("#000000")
+  order           Int
+  isDefault       Boolean     @default(false)
+  
+  // Relations
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId  String
+  feedbacks       Feedback[]
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@unique([organizationId, name])
+}
+
+model Tag {
+  id              String       @id @default(cuid())
+  name            String
+  color           String      @default("#000000")
+  
+  // Relations
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId  String
+  feedbacks       Feedback[]
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@unique([organizationId, name])
+}
+
+model Feedback {
+  id              String       @id @default(cuid())
+  title           String
+  description     String
+  votes           Int         @default(0)
+  
+  // Relations
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId  String
+  project         Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId       String
+  status          Status      @relation(fields: [statusId], references: [id])
+  statusId        String
+  tags            Tag[]
+  comments        Comment[]
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Comment {
+  id              String       @id @default(cuid())
+  content         String
+  
+  // Relations
+  feedback        Feedback    @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
+  feedbackId      String
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+} 
