@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FlowBack
 
-## Getting Started
+FlowBack é uma plataforma de feedback e gerenciamento de sugestões inspirada no Canny.io. Permite que organizações coletem, priorizem e gerenciem feedback de usuários de forma eficiente.
 
-First, run the development server:
+![FlowBack Screenshot](screenshot.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ✨ **Gestão de Feedback**
+  - Criação de sugestões e bugs
+  - Sistema de votação
+  - Comentários em feedbacks
+  - Tags personalizáveis
+  - Status de progresso customizáveis
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🏢 **Multi-tenant**
+  - Cada organização tem seu próprio espaço
+  - Subdomínios personalizados
+  - Configurações independentes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🎨 **Personalização**
+  - Logo customizável
+  - Status personalizáveis
+  - Tags com cores
+  - Títulos e subtítulos personalizáveis
 
-## Learn More
+- 👥 **Gestão de Usuários**
+  - Sistema de roles (Owner, Admin, Member)
+  - Gestão de equipe
+  - Permissões granulares
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tecnologias
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js 14](https://nextjs.org/) - Framework React
+- [TypeScript](https://www.typescriptlang.org/) - Linguagem
+- [Prisma](https://www.prisma.io/) - ORM
+- [PostgreSQL](https://www.postgresql.org/) - Banco de dados
+- [Tailwind CSS](https://tailwindcss.com/) - Estilização
+- [shadcn/ui](https://ui.shadcn.com/) - Componentes
+- [React Query](https://tanstack.com/query/latest) - Gerenciamento de estado
+- [Lucide Icons](https://lucide.dev/) - Ícones
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Como executar
 
-## Deploy on Vercel
+### Pré-requisitos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Node.js 18+
+- PostgreSQL
+- npm ou yarn
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Configuração
+
+1. Clone o repositório
