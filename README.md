@@ -1,6 +1,6 @@
 # FlowBack
 
-FlowBack é uma plataforma de feedback e gerenciamento de sugestões inspirada no Canny.io. Permite que organizações coletem, priorizem e gerenciem feedback de usuários de forma eficiente.
+FlowBack é uma plataforma de feedback e gerenciamento de sugestões. Permite que organizações coletem, priorizem e gerenciem feedback de usuários de forma eficiente.
 
 ![FlowBack Screenshot](screenshot.png)
 
