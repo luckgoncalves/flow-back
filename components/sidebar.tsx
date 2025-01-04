@@ -16,7 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
-import { useSession } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 const menuItems = [
@@ -92,10 +92,13 @@ export function Sidebar() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem className="text-red-600">
-            <Link href="/logout" className="flex items-center gap-2">
+            <button 
+              onClick={() => signOut({ callbackUrl: '/' })} 
+              className="flex items-center gap-2 w-full"
+            >
               <LogOut className="w-4 h-4" />
               Sair
-            </Link>
+            </button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
