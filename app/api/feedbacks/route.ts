@@ -1,30 +1,16 @@
-import { prisma } from "../../../lib/prisma"
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const feedbacks = await prisma.feedback.findMany({
-      include: {
-        status: true,
-        tags: true,
-        _count: {
-          select: {
-            comments: true
-          }
-        }
-      },
-      orderBy: {
-        votes: 'desc'
-      }
-    })
-
-    return NextResponse.json(feedbacks)
+    const feedbacks = await prisma.feedback.findMany();
+    return NextResponse.json(feedbacks);
   } catch (error) {
-    console.error(error)
+    console.error("Error fetching feedbacks:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Error fetching feedbacks" },
       { status: 500 }
-    )
+    );
   }
 }
 

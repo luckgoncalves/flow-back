@@ -16,6 +16,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
+import { useSession } from "next-auth/react"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 const menuItems = [
   { icon: Home, label: "Dashboard", href: "/" },
@@ -27,6 +29,9 @@ const menuItems = [
 ]
 
 export function Sidebar() {
+    const { data: session, status } = useSession();
+    console.log('Status:', status);
+  
   return (
     <div className="flex flex-col h-screen border-r bg-white w-[240px] px-3 py-4">
       {/* Logo */}
@@ -53,10 +58,19 @@ export function Sidebar() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="w-full justify-start px-3">
             <div className="flex items-center gap-2">
-              <User className="w-5 h-5" />
+                <Avatar className="h-8 w-8">
+                    <AvatarImage 
+                        src={session?.user?.image || ''} 
+                        alt={session?.user?.name || ''} 
+                        referrerPolicy="no-referrer"
+                    />
+                    <AvatarFallback>
+                        {session?.user?.name?.charAt(0) || <User className="w-4 h-4" />}
+                    </AvatarFallback>
+                </Avatar>
               <div className="flex flex-col items-start">
-                <span className="text-sm font-medium">Usuário</span>
-                <span className="text-xs text-gray-500">usuario@exemplo.com</span>
+                <span className="text-sm font-medium">{session?.user?.name}</span>
+                <span className="text-xs text-gray-500">{session?.user?.email}</span>
               </div>
             </div>
           </Button>

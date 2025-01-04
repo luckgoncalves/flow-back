@@ -7,6 +7,8 @@ import { FeedbackCard } from "@/components/feedback-card"
 import { useFeedbacks } from "@/hooks/use-feedbacks"
 import { useOrganization } from "@/hooks/use-organization"
 import { NewFeedbackDialog } from "@/components/new-feedback-dialog"
+import { CreateFeedbackButton } from "@/components/create-feedback-button"
+import { CreateFeedbackDialog } from "@/components/create-feedback-dialog" 
 
 export default function FeedbackPage() {
   const { organization } = useOrganization()
